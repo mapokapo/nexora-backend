@@ -7,10 +7,20 @@ import { Post, postSchema } from "../types/Post";
 export const getForYouPosts = async (user: UserRecord): Promise<Post[]> => {
   const tags = new Set<string>();
 
-  const likedPosts = await firestore
-    .collection("posts")
+  const userLikes = await firestore
+    .collection("likes")
     .where("userId", "==", user.uid)
     .get();
+
+  const likedPosts = await Promise.all(
+    userLikes.docs.map(async doc => {
+      const post = await firestore
+        .collection("posts")
+        .doc(doc.get("postId") as string)
+        .get();
+      return post;
+    })
+  );
 
   likedPosts.forEach(p => {
     (p.get("tags") as string[]).forEach(t => tags.add(t));
