@@ -1,7 +1,8 @@
-import { firestore } from "@/config/firebase";
-import { Post, postSchema } from "@/types/Post";
 import { UserRecord } from "firebase-admin/auth";
 import { z } from "zod";
+
+import { firestore } from "../config/firebase";
+import { Post, postSchema } from "../types/Post";
 
 export const getForYouPosts = async (user: UserRecord): Promise<Post[]> => {
   const tags = new Set<string>();

@@ -1,8 +1,9 @@
-import { firebaseAuth } from "@/middleware/firebaseAuth";
-import { forYou } from "@/routers/forYou";
 import { UserRecord } from "firebase-admin/auth";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+
+import { firebaseAuth } from "./middleware/firebaseAuth";
+import { forYou } from "./routers/forYou";
 
 declare module "hono" {
   interface ContextVariableMap {

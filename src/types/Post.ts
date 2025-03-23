@@ -1,6 +1,7 @@
-import { firestoreTimestampSchema } from "@/utils";
 import { Timestamp } from "firebase-admin/firestore";
 import { z } from "zod";
+
+import { firestoreTimestampSchema } from "../utils";
 
 export const postSchema = z.object({
   id: z.string().min(1, "ID is required"),

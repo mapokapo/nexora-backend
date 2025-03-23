@@ -1,6 +1,7 @@
-import { auth } from "@/config/firebase";
 import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
+
+import { auth } from "../config/firebase";
 
 export const firebaseAuth = createMiddleware(async (c, next) => {
   const authHeader = c.req.header("Authorization");
