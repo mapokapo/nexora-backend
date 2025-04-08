@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 
 import { firebaseAuth } from "./middleware/firebaseAuth";
 import { forYou } from "./routers/forYou";
+import { friends } from "./routers/friends";
 
 declare module "hono" {
   interface ContextVariableMap {
@@ -16,7 +17,7 @@ const app = new Hono();
 app.use(cors());
 app.use(firebaseAuth);
 
-const router = app.route("/for-you", forYou);
+const router = app.route("/for-you", forYou).route("/friends", friends);
 
 export type AppType = typeof router;
 
