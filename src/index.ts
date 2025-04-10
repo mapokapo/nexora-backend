@@ -17,7 +17,17 @@ const app = new Hono();
 app.use(cors());
 app.use(firebaseAuth);
 
-const router = app.route("/for-you", forYou).route("/friends", friends);
+const router = app
+  .route("/for-you", forYou)
+  .route("/friends", friends)
+  .onError((err, ctx) => {
+    console.error(err);
+
+    return ctx.text(
+      ctx.error !== undefined ? ctx.error.message : "Internal server error",
+      500
+    );
+  });
 
 export type AppType = typeof router;
 
